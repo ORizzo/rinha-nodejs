@@ -1,0 +1,31 @@
+{
+  "name": "fastify-nodejs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "engines": {
+    "node": "^18"
+  },
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "prepare": "prisma generate",
+    "gatling": "powershell ./executar-teste-local.ps1",
+    "build": "tsc --rootDir src --outDir dist",
+    "start": "node dist/server.js",
+    "prestart": "prisma migrate deploy && prisma db seed"
+  },
+  "prisma": {
+    "seed": "yarn tsx src/prisma/seed.ts"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^5.9.1",
+    "fastify": "^4.26.0",
+    "prisma": "^5.9.1",
+    "typescript": "^5.3.3",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "tsx": "^4.7.1"
+  }
+}

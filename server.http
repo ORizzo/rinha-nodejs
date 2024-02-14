@@ -1,0 +1,19 @@
+
+POST http://localhost:3000/clientes/2/transacoes HTTP/1.1
+content-type: application/json
+
+{
+    "valor": 80000,
+    "tipo" : "d",
+    "descricao" : "descricao"
+}
+
+###
+
+GET http://localhost:3000/clientes/2/extrato HTTP/1.1
+content-type: application/json
+
+###
+
+GET http://localhost:9999/clientes/1/extrato HTTP/1.1
+content-type: application/json
