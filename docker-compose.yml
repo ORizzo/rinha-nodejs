@@ -7,7 +7,6 @@ services:
     hostname: db-rinha
     ports:
       - 5432:5432
-    network_mode: host
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: docker
@@ -25,11 +24,10 @@ services:
     image: rinha-backend:latest
     hostname: api01
     environment:
-      - DATABASE_URL=postgresql://postgres:docker@localhost:5432/rinha?schema=public
+      - DATABASE_URL=postgresql://postgres:docker@db-rinha:5432/rinha?schema=public
       - PORT=3000
     ports:
       - '8080:3000'
-    network_mode: host
     build:
       context: .
     depends_on:
@@ -43,7 +41,7 @@ services:
     <<: *api
     hostname: api02
     ports:
-      - '8081:3001'
+      - '8081:3000'
 
   nginx:
     image: nginx:latest
@@ -54,9 +52,13 @@ services:
       - api02
     ports:
       - '9999:9999'
-    network_mode: host
     #deploy:
     #  resources:
     #    limits:
     #      cpus: '0.1'
     #      memory: '20MB'
+
+networks:
+  default:
+    driver: bridge
+    name: rinha-nginx-2024q1
